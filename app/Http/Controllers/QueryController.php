@@ -8,16 +8,15 @@ use Illuminate\Support\Facades\DB;
 class QueryController extends Controller
 {
     function index(){
-        //important হচ্ছে author বা books থেকে important রেকর্ড তুলে আনতে পারি। এবং বিভিন্ন টেবিল থাকে join  করে রেকর্ড তুলে আনতে পারি
+        //Title: where condition দিয়ে যদি কোনো কিছু খুজতে চাইলে 
 
-        //"এখানে প্রথম দুইটা রেকর্ড তুলে আনতে চাইলে লিমিট(২) ব্যবহার হয়েছে "
+        $books = DB::table('books')->where('id', 1)->get();
 
-       $authors = DB::table('authors')->limit(2)->get();
+        //Title: where ব্যবহার করে operator দিয়ে যদি কোন কিছু খুঁজতে চাইলে. যেমনঃ যে id দুই এর থেকে ছোট 
 
-       //"এবার যদি বলি প্রথম দুইটা পর থাকে পরের দুইটা তুলে আনো "
-       
-       $authors = DB::table('authors')->limit(3)->offset(2)->get();
+        $books = DB::table('books')->where('id','<', 2)->get();
 
-       return response()->json($authors);
+
+        return response()->json($books);
     }
 }
