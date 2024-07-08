@@ -8,18 +8,18 @@ use Illuminate\Support\Facades\DB;
 class QueryController extends Controller
 {
    function index(){
-    /*Multiple Where uses
-    Example: Where id < 5 and price <=14*/
-    $books = DB::table('books')->where([
-        ['id' , '<=' , 5],
-        ['Price' , '<=' , 14]
-    ])->get();
+    //Where book id >=3 and <= 7
+    $books = DB::table('books')->whereBetween('id' ,[3, 7])->get();
 
-    //Another way to write multiple where
-    $books = DB::table('books') ->where('id', '<=', 5) ->where('price', '<=', 14)->get();
+    // Different Version of between
+    $books = DB::table('books')
+    ->where('id', '>=', 3)
+    ->where('id', '<=', 7)
+    ->get();
 
+    //Where id=3 or id =7 | Only show  id 3 and 7
+    $books = DB::table('books')->whereIn('id', [3, 7])->get();
 
     return response($books);
-
    }
 }
