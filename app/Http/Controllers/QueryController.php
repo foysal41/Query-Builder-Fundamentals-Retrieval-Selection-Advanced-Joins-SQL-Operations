@@ -7,16 +7,19 @@ use Illuminate\Support\Facades\DB;
 
 class QueryController extends Controller
 {
-    function index(){
-        //Title: where condition দিয়ে যদি কোনো কিছু খুজতে চাইলে 
+   function index(){
+    /*Multiple Where uses
+    Example: Where id < 5 and price <=14*/
+    $books = DB::table('books')->where([
+        ['id' , '<=' , 5],
+        ['Price' , '<=' , 14]
+    ])->get();
 
-        $books = DB::table('books')->where('id', 1)->get();
-
-        //Title: where ব্যবহার করে operator দিয়ে যদি কোন কিছু খুঁজতে চাইলে. যেমনঃ যে id দুই এর থেকে ছোট 
-
-        $books = DB::table('books')->where('id','<', 2)->get();
+    //Another way to write multiple where
+    $books = DB::table('books') ->where('id', '<=', 5) ->where('price', '<=', 14)->get();
 
 
-        return response()->json($books);
-    }
+    return response($books);
+
+   }
 }
