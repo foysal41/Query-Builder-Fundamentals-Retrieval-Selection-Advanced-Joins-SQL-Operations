@@ -9,7 +9,9 @@ class QueryController extends Controller
 {
     function index(){
        $books= DB::table('books')->get();
-       return response()->json($books);
-       
+    
+
+       $count = DB::table('books')->count();
+       return response()->json($count);
     }
 }
